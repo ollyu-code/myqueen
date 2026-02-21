@@ -9,11 +9,11 @@
     // Videos for party mode slideshow (use your filenames)
     galleryVideos: [
       'media/video1.mp4',
-      'media/video2.MP4',
-      'media/video3.MP4',
-      'media/video4.MP4',
-      'media/video5.MP4',
-      'media/video6.MP4'
+      'media/video2.mp4',
+      'media/video3.mp4',
+      'media/video4.mp4',
+      'media/video5.mp4',
+      'media/video6.mp4'
     ],
     // Secret poem
     poemLines: [
@@ -258,9 +258,25 @@
 
   function playNextPartyVideo() {
     if (!partySlideVideo || !CONFIG.galleryVideos.length) return;
-    partySlideVideo.src = CONFIG.galleryVideos[currentVideoIndex];
+    var idx = currentVideoIndex;
     currentVideoIndex = (currentVideoIndex + 1) % CONFIG.galleryVideos.length;
-    partySlideVideo.play().catch(function () {});
+    var src = CONFIG.galleryVideos[idx];
+    partySlideVideo.removeEventListener('ended', playNextPartyVideo);
+    partySlideVideo.removeEventListener('canplay', onPartyVideoCanPlay);
+    partySlideVideo.removeEventListener('error', onPartyVideoError);
+    function onPartyVideoCanPlay() {
+      partySlideVideo.removeEventListener('error', onPartyVideoError);
+      partySlideVideo.play().catch(function () {});
+    }
+    function onPartyVideoError() {
+      partySlideVideo.removeEventListener('canplay', onPartyVideoCanPlay);
+      playNextPartyVideo();
+    }
+    partySlideVideo.addEventListener('canplay', onPartyVideoCanPlay, { once: true });
+    partySlideVideo.addEventListener('error', onPartyVideoError, { once: true });
+    partySlideVideo.src = src;
+    partySlideVideo.load();
+    partySlideVideo.addEventListener('ended', playNextPartyVideo);
   }
 
   function startPartyMode() {
