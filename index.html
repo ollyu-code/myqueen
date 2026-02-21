@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, My Love 🎉</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Confetti canvas (drawn by JS) -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- Floating hearts container (party mode only) -->
+  <div id="hearts-container" class="hearts-container" aria-hidden="true"></div>
+
+  <!-- Hero Section -->
+  <header class="hero" id="hero">
+    <div class="hero-bg" style="background-image: url('media/photo1.jpg');"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Happy Birthday, My Love 🎉</h1>
+      <p class="hero-subtext">Today we celebrate you.</p>
+      <button type="button" class="btn btn-glow" id="start-party-btn" aria-label="Start the party">Start the Party</button>
+    </div>
+    <a href="#countdown" class="scroll-hint" aria-label="Scroll down">↓</a>
+  </header>
+
+  <!-- Countdown Section -->
+  <section class="section countdown-section" id="countdown">
+    <div class="container">
+      <h2 class="section-title">Countdown</h2>
+      <div id="countdown-display" class="countdown-display">
+        <div class="countdown-box"><span id="days">--</span><small>Days</small></div>
+        <div class="countdown-box"><span id="hours">--</span><small>Hours</small></div>
+        <div class="countdown-box"><span id="minutes">--</span><small>Minutes</small></div>
+        <div class="countdown-box"><span id="seconds">--</span><small>Seconds</small></div>
+      </div>
+      <p id="countdown-message" class="countdown-message" hidden>It's your day! Let's celebrate 🎂</p>
+    </div>
+  </section>
+
+  <!-- Your Moments: photos + videos -->
+  <section class="section gallery-section" id="gallery">
+    <div class="container">
+      <h2 class="section-title">Your Moments</h2>
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- 4 photos -->
+        <div class="gallery-item gallery-item--photo" data-src="media/photo1.jpg">
+          <img src="media/photo1.jpg" alt="Memory 1" loading="lazy">
+        </div>
+        <div class="gallery-item gallery-item--photo" data-src="media/photo2.jpg">
+          <img src="media/photo2.jpg" alt="Memory 2" loading="lazy">
+        </div>
+        <div class="gallery-item gallery-item--photo" data-src="media/photo3.jpg">
+          <img src="media/photo3.jpg" alt="Memory 3" loading="lazy">
+        </div>
+        <div class="gallery-item gallery-item--photo" data-src="media/photo4.jpg">
+          <img src="media/photo4.jpg" alt="Memory 4" loading="lazy">
+        </div>
+        <!-- 6 videos -->
+        <div class="gallery-item gallery-item--video" data-src="media/video1.mp4" data-poster="media/photo1.jpg">
+          <video src="media/video1.mp4" poster="media/photo1.jpg" preload="metadata" muted playsinline></video>
+          <span class="gallery-play-icon" aria-hidden="true">▶</span>
+        </div>
+        <div class="gallery-item gallery-item--video" data-src="media/video2.mp4" data-poster="media/photo1.jpg">
+          <video src="media/video2.mp4" poster="media/photo1.jpg" preload="metadata" muted playsinline></video>
+          <span class="gallery-play-icon" aria-hidden="true">▶</span>
+        </div>
+        <div class="gallery-item gallery-item--video" data-src="media/video3.mp4" data-poster="media/photo1.jpg">
+          <video src="media/video3.mp4" poster="media/photo1.jpg" preload="metadata" muted playsinline></video>
+          <span class="gallery-play-icon" aria-hidden="true">▶</span>
+        </div>
+        <div class="gallery-item gallery-item--video" data-src="media/video4.mp4" data-poster="media/photo1.jpg">
+          <video src="media/video4.mp4" poster="media/photo1.jpg" preload="metadata" muted playsinline></video>
+          <span class="gallery-play-icon" aria-hidden="true">▶</span>
+        </div>
+        <div class="gallery-item gallery-item--video" data-src="media/video5.mp4" data-poster="media/photo1.jpg">
+          <video src="media/video5.mp4" poster="media/photo1.jpg" preload="metadata" muted playsinline></video>
+          <span class="gallery-play-icon" aria-hidden="true">▶</span>
+        </div>
+        <div class="gallery-item gallery-item--video" data-src="media/video6.mp4" data-poster="media/photo1.jpg">
+          <video src="media/video6.mp4" poster="media/photo1.jpg" preload="metadata" muted playsinline></video>
+          <span class="gallery-play-icon" aria-hidden="true">▶</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox (image or video) -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Media viewer" hidden>
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+    <div class="lightbox-media" id="lightbox-media">
+      <img id="lightbox-img" src="" alt="Enlarged view" hidden>
+      <video id="lightbox-video" controls preload="metadata" hidden>
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <!-- Party Mode -->
+  <section class="section party-section" id="party-mode">
+    <div class="container">
+      <h2 class="section-title">Party Mode 🎶</h2>
+      <button type="button" class="btn btn-glow btn-party" id="party-mode-btn" aria-label="Enter party mode">Enter Party Mode</button>
+      <p class="party-hint">Background music + video slideshow + floating hearts</p>
+    </div>
+  </section>
+
+  <!-- Party mode: fullscreen video slideshow -->
+  <div id="party-slideshow" class="party-slideshow" aria-hidden="true" hidden>
+    <video id="party-slide-video" autoplay muted playsinline></video>
+  </div>
+
+  <!-- Final Message -->
+  <section class="section final-section" id="final">
+    <div class="container">
+      <h2 class="section-title">❤️</h2>
+      <blockquote class="final-message">
+        Thank you for being the most amazing part of my life.<br>
+        Here's to many more birthdays together.
+      </blockquote>
+      <button type="button" class="secret-poem-trigger" id="secret-poem-trigger" aria-label="Reveal a secret">something hidden ♥</button>
+    </div>
+  </section>
+
+  <!-- Secret poem modal -->
+  <div id="poem-modal" class="poem-modal" role="dialog" aria-modal="true" aria-label="Secret poem" hidden>
+    <div class="poem-modal-backdrop" id="poem-modal-backdrop"></div>
+    <div class="poem-modal-content">
+      <button type="button" class="poem-modal-close" id="poem-modal-close" aria-label="Close">×</button>
+      <div class="poem-text" id="poem-text">
+        <!-- Replace the lines below with your poem (or edit in script.js CONFIG.poemLines) -->
+        <p>Your poem will go here.</p>
+        <p>Paste your lines when you're ready.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Made with ❤️ by <span id="your-name">Olly</span></p>
+  </footer>
+
+  <!-- Background audio (user interaction required to play) -->
+  <audio id="party-music" loop preload="metadata">
+    <source src="media/music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
