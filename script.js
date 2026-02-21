@@ -9,11 +9,11 @@
     // Videos for party mode slideshow (use your filenames)
     galleryVideos: [
       'media/video1.mp4',
-      'media/video2.mp4',
-      'media/video3.mp4',
-      'media/video4.mp4',
-      'media/video5.mp4',
-      'media/video6.mp4'
+      'media/video2.MP4',
+      'media/video3.MP4',
+      'media/video4.MP4',
+      'media/video5.MP4',
+      'media/video6.MP4'
     ],
     // Secret poem
     poemLines: [
