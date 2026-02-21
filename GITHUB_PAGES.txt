@@ -1,0 +1,41 @@
+Push to GitHub and turn on GitHub Pages
+========================================
+
+1. Create a new repo on GitHub
+   - Go to https://github.com/new
+   - Repository name: e.g. sandra or birthday (no spaces)
+   - Public, no README (you already have files)
+   - Create repository
+
+2. Push your code (run these in the project folder)
+
+   If your branch is "master" (Git default), rename it to "main" so Pages is happy:
+
+     git branch -M main
+
+   Add GitHub as remote (replace YOUR_USERNAME and REPO_NAME with yours):
+
+     git remote add origin https://github.com/YOUR_USERNAME/REPO_NAME.git
+
+   Push:
+
+     git push -u origin main
+
+   Example: if your GitHub user is "Olly" and repo is "sandra":
+     git remote add origin https://github.com/Olly/sandra.git
+     git push -u origin main
+
+3. Turn on GitHub Pages
+   - On the repo page: Settings → Pages (left sidebar)
+   - Under "Build and deployment":
+     - Source: Deploy from a branch
+     - Branch: main (or master)
+     - Folder: / (root)
+   - Save
+
+4. Your site will be live at:
+     https://YOUR_USERNAME.github.io/REPO_NAME/
+
+   (It can take 1–2 minutes the first time.)
+
+If you use GitHub’s own “Create repo” flow, it may show you the exact git remote add and git push commands to copy.

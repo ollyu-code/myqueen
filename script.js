@@ -179,11 +179,19 @@
     if (!lightbox || !lightboxVideo) return;
     lightboxImg.hidden = true;
     lightboxVideo.hidden = false;
+    lightboxVideo.muted = true;  /* start muted so play() works when hosted (browser autoplay rules) */
     lightboxVideo.src = src;
     lightbox.hidden = false;
     lightbox.setAttribute('data-open', 'true');
     document.body.style.overflow = 'hidden';
-    lightboxVideo.play().catch(function () {});
+    function tryPlay() {
+      lightboxVideo.play().catch(function () {});
+    }
+    if (lightboxVideo.readyState >= 2) {
+      tryPlay();
+    } else {
+      lightboxVideo.addEventListener('canplay', tryPlay, { once: true });
+    }
   }
 
   function openLightboxImage(src) {
