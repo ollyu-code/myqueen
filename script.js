@@ -22,7 +22,7 @@
       'My Troublemaker, the headache I wake up every morning in need of',
       'My CEO, the brilliance that will bring world leaders to their knees',
       'My friend, the kind my Mother says you must do life with',
-      'I know this far from the perfect Birthday',
+      'I know this is far from the perfect Birthday',
       'But I promise you the next birthday will always be better than the last',
       'I live every day looking for ways to make you smile',
       'And I hope in my little way this has brought a smile to your face',
@@ -338,6 +338,12 @@
     partyModeBtn.addEventListener('click', function () {
       if (partyModeActive) exitPartyMode();
       else startPartyMode();
+    });
+  }
+
+  if (partySlideshow) {
+    partySlideshow.addEventListener('click', function (e) {
+      if (partyModeActive && e.target === partySlideshow) exitPartyMode();
     });
   }
 
